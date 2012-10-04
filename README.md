@@ -5,7 +5,7 @@ realized we were walking with a cripple and are now going our own way.
 
 License
 -------
-Some parts of code may be under this license:
+Some parts of code and parts of plugins are under this license:
 
 ```
 Copyright (c) 2009-2012 Robby Russell, Sorin Ionescu, and contributors.
@@ -29,4 +29,4 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-The rest is under WTFPL.
+The rest is under WTFPL unless otherwise noted.
