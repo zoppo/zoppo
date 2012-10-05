@@ -237,6 +237,9 @@ fi
 if terminal:is-dumb; then
   zstyle ':zoppo:*:*' color 'no'
   zstyle ':zoppo' prompt 'off'
+else
+  [ $LS_COLORS ]   || zstyle -s ':zoppo:colors' ls LS_COLORS
+  [ $GREP_COLORS ] || zstyle -s ':zoppo:colors' grep GREP_COLORS
 fi
 
 # Setup history {{{
