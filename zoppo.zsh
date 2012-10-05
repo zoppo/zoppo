@@ -1,6 +1,57 @@
 # Helpers {{{
 
+# XXX: do NOT use in anonymous functions
+function source-relative {
+  (( $+2 )) || {
+    print 'source-relative: not enough arguments' >&2
+    return 1
+  }
+
+  source "$1/$2"
+}
+alias source-relative='source-relative "${0:h:a}"'
+
+function is-callable {
+  (( $+1 )) || {
+    print 'is-callable: not enough arguments' >&2
+    return 1
+  }
+
+  (( $+builtins[$1] )) || (( $+functions[$1] )) || (( $+aliases[$1] )) || (( $+commands[$1] ))
+}
+
+function zdefault {
+  case "$1" in
+    -[abs])
+      (( $+4 )) || {
+        print 'zdefault: not enough arguments' >&2
+        return 1
+      }
+
+      zstyle -T "$2" "$3" && zstyle "$2" "$3" "${(@)argv[5,-1]}"
+      zstyle "${(@)argv[1,4]}"
+      ;;
+
+    -*) print "zdefault: invalid option: $1"
+      return 1
+      ;;
+
+    *)
+      (( $+2 )) || {
+        print 'zdefault: not enough arguments' >&2
+        return 1
+      }
+
+      zstyle -T "$1" "$2" && zstyle "$@"
+  esac
+}
+
 # Path Helpers {{{
+zdefault ':zoppo:internal:path' base "${0:h:a}"
+zdefault ':zoppo:internal:path' lib "${0:h:a}/lib"
+zdefault ':zoppo:internal:path' plugins "${0:h:a}/plugins"
+zdefault ':zoppo:internal:path' prompts "${0:h:a}/prompts"
+
 function path:base {
   local path
   zstyle -s ':zoppo:internal:path' base path
@@ -150,61 +201,11 @@ function plugin:is-loaded {
 
   zstyle -t ":zoppo:internal:plugin:$1" loaded 'yes'
 }
-# }}}
-
-# XXX: do NOT use in anonymous functions
-function source-relative {
-  (( $+2 )) || {
-    print 'source-relative: not enough arguments' >&2
-    return 1
-  }
-
-  source "$1/$2"
-}
-alias source-relative='source-relative "${0:h:a}"'
-
-function is-callable {
-  (( $+1 )) || {
-    print 'is-callable: not enough arguments' >&2
-    return 1
-  }
-
-  (( $+builtins[$1] )) || (( $+functions[$1] )) || (( $+aliases[$1] )) || (( $+commands[$1] ))
-}
-
-function zdefault {
-  case "$1" in
-    -[abs])
-      (( $+4 )) || {
-        print 'zdefault: not enough arguments' >&2
-        return 1
-      }
-
-      zstyle -T "$2" "$3" && zstyle "$2" "$3" "${(@)argv[5,-1]}"
-      zstyle "${(@)argv[1,4]}"
-      ;;
-
-    -*) print "zdefault: invalid option: $1"
-      return 1
-      ;;
-
-    *)
-      (( $+2 )) || {
-        print 'zdefault: not enough arguments' >&2
-        return 1
-      }
-
-      zstyle -T "$1" "$2" && zstyle "$@"
-  esac
-}
 
 alias zplugload='plugin:load'
 # }}}
 
-zdefault ':zoppo:internal:path' base "${0:h:a}"
-zdefault ':zoppo:internal:path' lib "${0:h:a}/lib"
-zdefault ':zoppo:internal:path' plugins "${0:h:a}/plugins"
-zdefault ':zoppo:internal:path' prompts "${0:h:a}/prompts"
+# }}}
 
 # Load lib {{{
 function {
@@ -247,8 +248,6 @@ function {
 }
 # }}}
 
-functions:add "$(path:prompts)"
-
 if [[ -s "${ZDOTDIR:-$HOME}/.zopporc" ]]; then
   source "${ZDOTDIR:-$HOME}/.zopporc"
 fi
@@ -284,6 +283,7 @@ done
 unset history_options
 # }}}
 
+functions:add "$(path:prompts)"
 autoload -Uz promptinit && promptinit
 typeset -a zoppo_prompt
 zdefault -a ':zoppo' prompt zoppo_prompt 'off'
