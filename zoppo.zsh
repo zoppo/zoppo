@@ -244,6 +244,7 @@ function lib:load {
 function lib:load-all {
   local zlib
 
+  setopt LOCAL_OPTIONS EXTENDED_GLOB
   for zlib ("$1"/^([_.]*|README*)(N))
     lib:load "$zlib"
 }
