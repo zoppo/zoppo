@@ -179,17 +179,21 @@ function zdefault {
         print 'zdefault: not enough arguments' >&2
         return 1
       }
+
       zstyle -T "$2" "$3" && zstyle "$2" "$3" "${(@)argv[5,-1]}"
       zstyle "${(@)argv[1,4]}"
       ;;
+
     -*) print "zdefault: invalid option: $1"
       return 1
       ;;
+
     *)
       (( $+2 )) || {
         print 'zdefault: not enough arguments' >&2
         return 1
       }
+
       zstyle -T "$1" "$2" && zstyle "$@"
   esac
 }
