@@ -84,11 +84,6 @@ function functions:autoload-file-relative {
 alias functions:autoload-file-relative='functions:autoload-file-relative "${0:h:a}"'
 #}}}
 
-function terminal:dumb {
-  typeset -g TERM
-  [ "$TERM" = dumb ]
-}
-
 # XXX: do NOT use in anonymous functions
 function source-relative {
   (( $+2 )) || {
@@ -238,7 +233,7 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zopporc" ]]; then
   source "${ZDOTDIR:-$HOME}/.zopporc"
 fi
 
-if terminal:dumb; then
+if terminal:is-dumb; then
   zstyle ':zoppo:*:*' color 'no'
   zstyle ':zoppo' prompt 'off'
 fi
