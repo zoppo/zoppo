@@ -29,9 +29,10 @@ function path:prompts {
 # Functions Helpers {{{
 function functions:add {
   (( $+1 )) || {
-    print "functions:add: not enough arguments" >&2
+    print 'functions:add: not enough arguments' >&2
     return 1
   }
+
   typeset -ga fpath
   fpath=($@ $fpath)
 }
@@ -39,11 +40,11 @@ function functions:add {
 # XXX: do NOT use in anonymous functions
 function functions:add-relative {
   (( $+2 )) || {
-    print "functions:add-relative: not enough arguments" >&2
+    print 'functions:add-relative: not enough arguments' >&2
     return 1
   }
-  local base="$1"
-  functions:add "$base/"${^${(@)argv[2,-1]}}
+
+  functions:add "$1/${^${(@)argv[2,-1]}}"
 }
 alias functions:add-relative='functions:add-relative "${0:h:a}"'
 
@@ -63,12 +64,11 @@ function functions:autoload-file {
     print "functions:autoload-file: not enough arguments" >&2
     return 1
   }
-  local file="$1"
 
   for name ("${(@)argv[2,-1]}")
     eval "function $name {
       unfunction $name
-      source ${(q)file}
+      source ${(q)1}
       $name \"\$@\"
     }"
 }
@@ -79,6 +79,7 @@ function functions:autoload-file-relative {
     print "functions:autoload-file-relative: not enough arguments" >&2
     return 1
   }
+
   functions:autoload-file "$1/$2" "${(@)argv[3,-1]}"
 }
 alias functions:autoload-file-relative='functions:autoload-file-relative "${0:h:a}"'
@@ -90,6 +91,7 @@ function plugin:load {
     print "plugin:load: not enough arguments" >&2
     return 1
   }
+
   local -a zplugins
   local zplugin
   local PLUGSPATH="$(path:plugins)"
@@ -163,7 +165,7 @@ alias source-relative='source-relative "${0:h:a}"'
 
 function is-callable {
   (( $+1 )) || {
-    print "is-callable: not enough arguments" >&2
+    print 'is-callable: not enough arguments' >&2
     return 1
   }
 
@@ -174,7 +176,7 @@ function zdefault {
   case "$1" in
     -[abs])
       (( $+4 )) || {
-        print "zdefault: not enough arguments" >&2
+        print 'zdefault: not enough arguments' >&2
         return 1
       }
       zstyle -T "$2" "$3" && zstyle "$2" "$3" "${(@)argv[5,-1]}"
@@ -185,14 +187,14 @@ function zdefault {
       ;;
     *)
       (( $+2 )) || {
-        print "zdefault: not enough arguments" >&2
+        print 'zdefault: not enough arguments' >&2
         return 1
       }
       zstyle -T "$1" "$2" && zstyle "$@"
   esac
 }
 
-alias zplugload=plugin:load
+alias zplugload='plugin:load'
 # }}}
 
 zdefault ':zoppo:internal:path' base "${0:h:a}"
