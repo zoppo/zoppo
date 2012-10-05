@@ -252,10 +252,10 @@ function lib:load-all {
 # }}}
 
 lib:load-all "$(path:lib)"
+
 if [[ -s "${ZDOTDIR:-$HOME}/.zopporc" ]]; then
   source "${ZDOTDIR:-$HOME}/.zopporc"
 fi
-lib:load-all "$(path:lib)/after"
 
 functions:add "$(path:prompts)"
 autoload -Uz promptinit && promptinit
