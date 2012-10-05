@@ -1,14 +1,5 @@
 # Helpers {{{
 
-function is-callable {
-  (( $+1 )) || {
-    print 'is-callable: not enough arguments' >&2
-    return 1
-  }
-
-  (( $+builtins[$1] )) || (( $+functions[$1] )) || (( $+aliases[$1] )) || (( $+commands[$1] ))
-}
-
 function zdefault {
   case "$1" in
     -[abs])
