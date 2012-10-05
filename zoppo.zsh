@@ -165,7 +165,7 @@ function plugin:load {
 
         setopt LOCAL_OPTIONS EXTENDED_GLOB
 
-        for zfunction ("$PLUGPATH"/functions/^([_.]*|README*)(.N:t))
+        for zfunction ("$PLUGPATH"/functions/^([_.]*|README*|after)(.N:t))
           functions:autoload "$zfunction"
       }
 
@@ -205,83 +205,57 @@ function plugin:is-loaded {
 alias zplugload='plugin:load'
 # }}}
 
-# }}}
+# Library Helpers {{{
+function lib:load {
+  if [[ -s "$1" ]]; then
+    source "$1"
+  elif [[ -d "$1" ]]; then
+    functions:add "$1"/functions(/FN) 2>/dev/null
 
-# Load lib {{{
-function {
-  local zlib
-  local LIBPATH="$(path:lib)"
+    function {
+      local zfunction
 
-  for zlib ("$LIBPATH"/^([_.]*|README*)(N)); do
-    if [[ -s "$zlib" ]]; then
-      source "$zlib"
-    elif [[ -d "$zlib" ]]; then
-      functions:add "$zlib"/functions(/FN) 2>/dev/null
+      setopt LOCAL_OPTIONS EXTENDED_GLOB
+
+      for zfunction ("$1"/functions/^([_.]*|README*)(.N:t))
+        functions:autoload "$zfunction"
+    }
+
+    if [[ -s "$1/init.sh" ]]; then
+      source "$1/init.sh"
+    fi
+
+    if (( $? != 0 )); then
+      fpath[(r)"$1"/functions]=()
 
       function {
         local zfunction
 
         setopt LOCAL_OPTIONS EXTENDED_GLOB
 
-        for zfunction ("$zlib"/functions/^([_.]*|README*)(.N:t))
-          functions:autoload "$zfunction"
+        for zfunction ("$1"/functions/^([_.]*|README*)(.N:t))
+          unfunction "$zfunction"
       }
-
-      if [[ -s "$zlib/init.sh" ]]; then
-        source "$zlib/init.sh"
-      fi
-
-      if (( $? != 0 )); then
-        fpath[(r)"$zlib"/functions]=()
-
-        function {
-          local zfunction
-
-          setopt LOCAL_OPTIONS EXTENDED_GLOB
-
-          for zfunction ("$zlib"/functions/^([_.]*|README*)(.N:t))
-            unfunction "$zfunction"
-        }
-      fi
     fi
+  fi
+}
+
+function lib:load-all {
+  local zlib
+
+  for zlib ("$1"/^([_.]*|README*)(N)); do
+    lib:load "$zlib"
   done
 }
 # }}}
 
+# }}}
+
+lib:load-all "$(path:lib)"
 if [[ -s "${ZDOTDIR:-$HOME}/.zopporc" ]]; then
   source "${ZDOTDIR:-$HOME}/.zopporc"
 fi
-
-if terminal:is-dumb; then
-  zstyle ':zoppo:*:*' color 'no'
-  zstyle ':zoppo' prompt 'off'
-else
-  [ $LS_COLORS ]   || zstyle -s ':zoppo:colors' ls LS_COLORS
-  [ $GREP_COLORS ] || zstyle -s ':zoppo:colors' grep GREP_COLORS
-fi
-
-# Setup history {{{
-zdefault -s ':zoppo:history' file      HISTFILE "${ZDOTDIR:-$HOME}/.zhistory"
-zdefault -s ':zoppo:history' max       HISTSIZE 10000
-zdefault -s ':zoppo:history' max-saved SAVEHIST 10000
-
-zdefault -a ':zoppo:history' options history_options \
-  'bang-hist' 'extended-history' 'inc-append-history' 'share-history' 'expire-dups-first' \
-  'ignore-dups' 'ignore-all-dups' 'find-no-dups' 'ignore-space' 'save-no-dups' 'verify' 'no-beep'
-
-for option in ${history_options[*]}; do
-  if [[ "$option" =~ "^no-" ]]; then
-    if [ -n "$(unsetopt "${${${option#no-}//-/_}:u}" 2>&1)" ] && [ -n "$(unsetopt "HIST_${${${option#no-}//-/_}:u}" 2>&1)" ]; then
-      print "history: ${option#no-} not found: could not disable"
-    fi
-  else
-    if [ -n "$(setopt "${${option//-/_}:u}" 2>&1)" ] && [ -n "$(setopt "HIST_${${option//-/_}:u}" 2>&1)" ]; then
-      print "history: $option not found: could not enable"
-    fi
-  fi
-done
-unset history_options
-# }}}
+lib:load-all "$(path:lib)/after"
 
 functions:add "$(path:prompts)"
 autoload -Uz promptinit && promptinit
