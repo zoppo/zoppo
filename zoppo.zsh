@@ -207,17 +207,18 @@ alias zplugload='plugin:load'
 
 # Library Helpers {{{
 function lib:load {
-  if [[ -s "$1" ]]; then
+  if [[ -f "$1" ]]; then
     source "$1"
   elif [[ -d "$1" ]]; then
     functions:add "$1"/functions(/FN) 2>/dev/null
 
+    local LIBPATH="$1"
     function {
       local zfunction
 
       setopt LOCAL_OPTIONS EXTENDED_GLOB
 
-      for zfunction ("$1"/functions/^([_.]*|README*)(.N:t))
+      for zfunction ("$LIBPATH"/functions/^([_.]*|README*)(.N:t))
         functions:autoload "$zfunction"
     }
 
@@ -233,7 +234,7 @@ function lib:load {
 
         setopt LOCAL_OPTIONS EXTENDED_GLOB
 
-        for zfunction ("$1"/functions/^([_.]*|README*)(.N:t))
+        for zfunction ("$LIBPATH"/functions/^([_.]*|README*)(.N:t))
           unfunction "$zfunction"
       }
     fi
@@ -243,9 +244,8 @@ function lib:load {
 function lib:load-all {
   local zlib
 
-  for zlib ("$1"/^([_.]*|README*)(N)); do
+  for zlib ("$1"/^([_.]*|README*)(N))
     lib:load "$zlib"
-  done
 }
 # }}}
 
