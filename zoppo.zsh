@@ -257,6 +257,11 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zopporc" ]]; then
   source "${ZDOTDIR:-$HOME}/.zopporc"
 fi
 
+if terminal:is-dumb; then
+  zstyle ':zoppo:*:*' color 'no'
+  zstyle ':zoppo' prompt 'off'
+fi
+
 functions:add "$(path:prompts)"
 autoload -Uz promptinit && promptinit
 typeset -a zoppo_prompt
