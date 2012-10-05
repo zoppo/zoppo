@@ -148,7 +148,7 @@ function plugin:is-loaded {
     return 1
   }
 
-  return zstyle -t ":zoppo:internal:plugin:$1" loaded 'yes'
+  zstyle -t ":zoppo:internal:plugin:$1" loaded 'yes'
 }
 # }}}
 
