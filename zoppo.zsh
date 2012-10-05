@@ -89,6 +89,17 @@ function terminal:dumb {
   [ "$TERM" = dumb ]
 }
 
+# XXX: do NOT use in anonymous functions
+function source-relative {
+  (( $+2 )) || {
+    print 'source-relative: not enough arguments' >&2
+    return 1
+  }
+
+  source "$1/$2"
+}
+alias source-relative='source-relative "${0:h:a}"'
+
 function zdefault {
   case "$1" in
     -[abs])
