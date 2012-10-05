@@ -84,51 +84,10 @@ function functions:autoload-file-relative {
 alias functions:autoload-file-relative='functions:autoload-file-relative "${0:h:a}"'
 #}}}
 
-# XXX: do NOT use in anonymous functions
-function source-relative {
-  (( $+2 )) || {
-    print 'source-relative: not enough arguments' >&2
-    return 1
-  }
-
-  source "$1/$2"
-}
-alias source-relative='source-relative "${0:h:a}"'
-
-function zdefault {
-  case "$1" in
-    -[abs])
-      (( $+4 )) || {
-        print "zdefault: not enough arguments" >&2
-        return 1
-      }
-      zstyle -T "$2" "$3" && zstyle "$2" "$3" "${(@)argv[5,-1]}"
-      zstyle "${(@)argv[1,4]}"
-      ;;
-    -*) print "zdefault: invalid option: $1"
-      return 1
-      ;;
-    *)
-      (( $+2 )) || {
-        print "zdefault: not enough arguments" >&2
-        return 1
-      }
-      zstyle -T "$1" "$2" && zstyle "$@"
-  esac
-}
-
-function is-callable {
+# Plugin Helpers {{{
+function plugin:load {
   (( $+1 )) || {
-    print "is-callable: not enough arguments" >&2
-    return 1
-  }
-
-  (( $+builtins[$1] )) || (( $+functions[$1] )) || (( $+aliases[$1] )) || (( $+commands[$1] ))
-}
-
-function zplugload {
-  (( $+1 )) || {
-    print "zplugload: not enough arguments" >&2
+    print "plugin:load: not enough arguments" >&2
     return 1
   }
   local -a zplugins
@@ -180,6 +139,60 @@ function zplugload {
     fi
   done
 }
+
+function plugin:is-loaded {
+  (( $+1 )) || {
+    print 'plugin:is-loaded: not enough arguments' >&2
+    return 1
+  }
+
+  return zstyle -t ":zoppo:internal:plugin:$1" loaded 'yes'
+}
+# }}}
+
+# XXX: do NOT use in anonymous functions
+function source-relative {
+  (( $+2 )) || {
+    print 'source-relative: not enough arguments' >&2
+    return 1
+  }
+
+  source "$1/$2"
+}
+alias source-relative='source-relative "${0:h:a}"'
+
+function is-callable {
+  (( $+1 )) || {
+    print "is-callable: not enough arguments" >&2
+    return 1
+  }
+
+  (( $+builtins[$1] )) || (( $+functions[$1] )) || (( $+aliases[$1] )) || (( $+commands[$1] ))
+}
+
+function zdefault {
+  case "$1" in
+    -[abs])
+      (( $+4 )) || {
+        print "zdefault: not enough arguments" >&2
+        return 1
+      }
+      zstyle -T "$2" "$3" && zstyle "$2" "$3" "${(@)argv[5,-1]}"
+      zstyle "${(@)argv[1,4]}"
+      ;;
+    -*) print "zdefault: invalid option: $1"
+      return 1
+      ;;
+    *)
+      (( $+2 )) || {
+        print "zdefault: not enough arguments" >&2
+        return 1
+      }
+      zstyle -T "$1" "$2" && zstyle "$@"
+  esac
+}
+
+alias zplugload=plugin:load
 # }}}
 
 zdefault ':zoppo:internal:path' base "${0:h:a}"
