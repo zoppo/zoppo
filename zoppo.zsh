@@ -1,27 +1,27 @@
 # Helpers {{{
 
 # Path Helpers {{{
-function zoppo:path {
+function path:base {
   local path
-  zstyle -s ':zoppo:internal' path path
+  zstyle -s ':zoppo:internal:path' base path
   print -- "$path"
 }
 
-function zoppo:libs:path {
+function path:lib {
   local path
-  zstyle -s ':zoppo:internal:libs' path path
+  zstyle -s ':zoppo:internal:path' lib path
   print -- "$path"
 }
 
-function zoppo:plugins:path {
+function path:plugins {
   local path
-  zstyle -s ':zoppo:internal:plugins' path path
+  zstyle -s ':zoppo:internal:path' plugins path
   print -- "$path"
 }
 
-function zoppo:prompts:path {
+function path:prompts {
   local path
-  zstyle -s ':zoppo:internal:prompts' path path
+  zstyle -s ':zoppo:internal:path' prompts path
   print -- "$path"
 }
 # }}}
@@ -133,7 +133,7 @@ function zplugload {
   }
   local -a zplugins
   local zplugin
-  local PLUGSPATH="$(zoppo:plugins:path)"
+  local PLUGSPATH="$(path:plugins)"
 
   zplugins=("$argv[@]")
 
@@ -182,17 +182,17 @@ function zplugload {
 }
 # }}}
 
-zdefault ':zoppo:internal' path "${0:h:a}"
-zdefault ':zoppo:internal:libs' path "${0:h:a}/lib"
-zdefault ':zoppo:internal:plugins' path "${0:h:a}/plugins"
-zdefault ':zoppo:internal:prompts' path "${0:h:a}/prompts"
+zdefault ':zoppo:internal:path' base "${0:h:a}"
+zdefault ':zoppo:internal:path' lib "${0:h:a}/lib"
+zdefault ':zoppo:internal:path' plugins "${0:h:a}/plugins"
+zdefault ':zoppo:internal:path' prompts "${0:h:a}/prompts"
 
 # Load lib {{{
 function {
   local zlib
-  local LIBSPATH="$(zoppo:libs:path)"
+  local LIBPATH="$(path:lib)"
 
-  for zlib ("$LIBSPATH"/^([_.]*|README*)(N)); do
+  for zlib ("$LIBPATH"/^([_.]*|README*)(N)); do
     if [[ -s "$zlib" ]]; then
       source "$zlib"
     elif [[ -d "$zlib" ]]; then
@@ -228,7 +228,7 @@ function {
 }
 # }}}
 
-functions:add "$(zoppo:prompts:path)"
+functions:add "$(path:prompts)"
 
 if [[ -s "${ZDOTDIR:-$HOME}/.zopporc" ]]; then
   source "${ZDOTDIR:-$HOME}/.zopporc"
