@@ -3,25 +3,25 @@
 # Path Helpers {{{
 function zoppo:path {
   local path
-  zstyle -s ':zoppo:internal' path 'path'
+  zstyle -s ':zoppo:internal' path path
   print -- "$path"
 }
 
 function zoppo:libs:path {
   local path
-  zstyle -s ':zoppo:internal:libs' path 'path'
+  zstyle -s ':zoppo:internal:libs' path path
   print -- "$path"
 }
 
 function zoppo:plugins:path {
   local path
-  zstyle -s ':zoppo:internal:plugins' path 'path'
+  zstyle -s ':zoppo:internal:plugins' path path
   print -- "$path"
 }
 
 function zoppo:prompts:path {
   local path
-  zstyle -s ':zoppo:internal:prompts' path 'path'
+  zstyle -s ':zoppo:internal:prompts' path path
   print -- "$path"
 }
 # }}}
@@ -234,19 +234,19 @@ fi
 
 autoload -Uz promptinit && promptinit
 typeset -a zoppo_prompt
-zdefault -a ':zoppo' prompt 'zoppo_prompt' 'off'
+zdefault -a ':zoppo' prompt zoppo_prompt 'off'
 prompt "$zoppo_prompt[@]"
 unset zoppo_prompt
 
-zstyle -a ':zoppo:load' modules 'zmodules'
+zstyle -a ':zoppo:load' modules zmodules
 for zmodule ("$zmodules[@]") zmodload "zsh/${(z)module}"
 unset zmodule{,s}
 
-zstyle -a ':zoppo:load' functions 'zfunctions'
+zstyle -a ':zoppo:load' functions zfunctions
 functions:autoload "$zfunctions[@]" 2>/dev/null
 unset zfunctions
 
-zstyle -a ':zoppo:load' plugins 'zplugins'
+zstyle -a ':zoppo:load' plugins zplugins
 zplugload "$zplugins[@]" 2>/dev/null
 unset zplugins
 

@@ -1,9 +1,7 @@
 if ! is-callable realpath; then
   function realpath {
     [ $# = 0 ] && {
-      cat <<EOF
-USAGE: $0 path [path ...]
-EOF
+      print "USAGE: $0 path [path ...]"
       return 1
     }
 
@@ -12,4 +10,4 @@ EOF
   }
 fi
 
-# vim: set ft=zsh sts=2 ts=2 sw=2 et:
+# vim: ft=zsh sts=2 ts=2 sw=2 et fdm=marker fmr={{{,}}}
