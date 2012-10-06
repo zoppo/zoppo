@@ -1,19 +1,17 @@
-function sort_by_length {
-  local -a array
-  local i j tmp
-  array=("${(@P)1}")
+local -a array
+local i j tmp
+array=("${(@P)1}")
 
-  for ((i = 1; i < $#array + 1; i++)); do
-    for ((j = i; j < $#array + 1; j++)); do
-      if ((${#array[$i]} < ${#array[$j]})); then
-        tmp="$array[$i]"
-        array[$i]="$array[$j]"
-        array[$j]="$tmp"
-      fi
-    done
+for ((i = 1; i < $#array + 1; i++)); do
+  for ((j = i; j < $#array + 1; j++)); do
+    if ((${#array[$i]} < ${#array[$j]})); then
+      tmp="$array[$i]"
+      array[$i]="$array[$j]"
+      array[$j]="$tmp"
+    fi
   done
+done
 
-  eval "${1}=(\"\${array[@]}\")"
-}
+eval "${1}=(\"\${array[@]}\")"
 
 # vim: ft=zsh sts=2 ts=2 sw=2 et fdm=marker fmr={{{,}}}
