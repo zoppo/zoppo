@@ -1,0 +1,7 @@
+if [[ -n $WINDOW ]]; then
+  print -n -- "$WINDOW"
+else
+  return 1
+fi
+
+# vim: ft=zsh sts=2 ts=2 sw=2 et fdm=marker fmr={{{,}}}

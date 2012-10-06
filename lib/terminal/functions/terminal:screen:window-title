@@ -1,0 +1,11 @@
+if [[ "$TERM" != screen* ]]; then
+  return 1
+fi
+
+if (( $+1 )); then
+  printf "\ek%s\e\\" ${(V)argv}
+else
+  return 1
+fi
+
+# vim: ft=zsh sts=2 ts=2 sw=2 et fdm=marker fmr={{{,}}}
