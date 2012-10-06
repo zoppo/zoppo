@@ -87,7 +87,7 @@ function functions:autoload {
 
   local fun
   for fun ("$@")
-    autoload -Uz "$fun"
+    autoload -Uz -- "$fun"
 }
 
 function functions:autoload-file {
