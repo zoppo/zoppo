@@ -116,10 +116,10 @@ function functions:autoload-file-relative {
 alias functions:autoload-file-relative='functions:autoload-file-relative "${0:h:a}"'
 #}}}
 
-# Plugin Helpers {{{
-function plugin:load {
+# Plugins Helpers {{{
+function plugins:load {
   (( $+1 )) || {
-    print "plugin:load: not enough arguments" >&2
+    print "plugins:load: not enough arguments" >&2
     return 1
   }
 
@@ -173,16 +173,16 @@ function plugin:load {
   done
 }
 
-function plugin:is-loaded {
+function plugins:is-loaded {
   (( $+1 )) || {
-    print 'plugin:is-loaded: not enough arguments' >&2
+    print 'plugins:is-loaded: not enough arguments' >&2
     return 1
   }
 
   zstyle -t ":zoppo:internal:plugin:$1" loaded 'yes'
 }
 
-alias zplugload='plugin:load'
+alias zplugload='plugins:load'
 # }}}
 
 # Library Helpers {{{
