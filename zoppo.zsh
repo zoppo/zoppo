@@ -213,8 +213,8 @@ function lib:load {
         functions:autoload "$zfunction"
     }
 
-    if [[ -s "$1/init.sh" ]]; then
-      source "$1/init.sh"
+    if [[ -s "$1/init.zsh" ]]; then
+      source "$1/init.zsh"
     fi
 
     if (( $? != 0 )); then
