@@ -1,0 +1,5 @@
+local path
+zstyle -s ':zoppo:internal:path' base path
+print -- "$path"
+
+# vim: ft=zsh sts=2 ts=2 sw=2 et fdm=marker fmr={{{,}}}

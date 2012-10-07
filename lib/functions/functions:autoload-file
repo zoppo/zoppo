@@ -1,0 +1,13 @@
+(( $+2 )) || {
+  print "functions:autoload-file: not enough arguments" >&2
+  return 1
+}
+
+for name ("${(@)argv[2,-1]}")
+  eval "function $name {
+    unfunction $name
+    source ${(q)1}
+    $name \"\$@\"
+  }"
+
+# vim: ft=zsh sts=2 ts=2 sw=2 et fdm=marker fmr={{{,}}}

@@ -1,0 +1,25 @@
+case "$1" in
+  -[abs])
+    (( $+4 )) || {
+      print 'zdefault: not enough arguments' >&2
+      return 1
+    }
+
+    zstyle -T "$2" "$3" && zstyle "$2" "$3" "${(@)argv[5,-1]}"
+    zstyle "${(@)argv[1,4]}"
+    ;;
+
+  -*) print "zdefault: invalid option: $1"
+    return 1
+    ;;
+
+  *)
+    (( $+2 )) || {
+      print 'zdefault: not enough arguments' >&2
+      return 1
+    }
+
+    zstyle -T "$1" "$2" && zstyle "$@"
+esac
+
+# vim: ft=zsh sts=2 ts=2 sw=2 et fdm=marker fmr={{{,}}}

@@ -1,0 +1,9 @@
+(( $+1 )) || {
+  print 'functions:add: not enough arguments' >&2
+  return 1
+}
+
+typeset -ga fpath
+fpath=($@ $fpath)
+
+# vim: ft=zsh sts=2 ts=2 sw=2 et fdm=marker fmr={{{,}}}
