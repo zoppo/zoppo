@@ -173,6 +173,17 @@ function plugins:load {
   done
 }
 
+function plugins:require {
+  (( $+1 )) || {
+    print "plugins:load: not enough arguments" >&2
+    return 1
+  }
+
+  plugins:load $1
+
+  zstyle -t ":zoppo:internal:plugin:$1" loaded 'yes'
+}
+
 function plugins:is-loaded {
   (( $+1 )) || {
     print 'plugins:is-loaded: not enough arguments' >&2
