@@ -9,6 +9,16 @@ case "$1" in
     zstyle "${(@)argv[1,4]}"
     ;;
 
+  -t)
+    (( $# != 4 )) || {
+      print 'zdefault: wrong number of arguments' >&2
+      return 1
+    }
+
+    zstyle -T "$2" "$3" && zstyle "$2" "$3" "$4"
+    zstyle -t "$2" "$3"
+    ;;
+
   -*) print "zdefault: invalid option: $1"
     return 1
     ;;
