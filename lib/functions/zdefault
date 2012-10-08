@@ -10,7 +10,7 @@ case "$1" in
     ;;
 
   -t)
-    (( $# != 4 )) || {
+    (( $# != 4 )) && {
       print 'zdefault: wrong number of arguments' >&2
       return 1
     }
