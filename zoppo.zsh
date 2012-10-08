@@ -28,6 +28,29 @@ if terminal:is-dumb; then
   zstyle ':zoppo' prompt 'off'
 fi
 
+# Environment Options {{{
+function {
+  local -a options
+  local option
+
+  zdefault -a ':zoppo' options options \
+    'brace-ccl' 'rc-quotes' 'no-mail-warning' 'long-list-jobs' 'auto-resume' 'notify' \
+    'no-bg-nice' 'no-hup' 'no-check-jobs'
+
+  for option ("$options[@]"); do
+    if [[ "$option" =~ "^no-" ]]; then
+      if [[ -n "$(unsetopt "${${${option#no-}//-/_}:u}" 2>&1)" ]]; then
+        print "zoppo: ${option#no-} not found: could not disable"
+      fi
+    else
+      if [[ -n "$(setopt "${${option//-/_}:u}" 2>&1)" ]]; then
+        print "zoppo: $option not found: could not enable"
+      fi
+    fi
+  done
+}
+# }}}
+
 functions:add "$(path:prompts)"
 functions:autoload promptinit && promptinit
 typeset -a zoppo_prompt
