@@ -12,6 +12,6 @@ for ((i = 1; i < $#array + 1; i++)); do
   done
 done
 
-eval "${1}=(\"\${array[@]}\")"
+set -A $1 "$array[@]"
 
 # vim: ft=zsh sts=2 ts=2 sw=2 et fdm=marker fmr={{{,}}}
