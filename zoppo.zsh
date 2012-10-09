@@ -86,13 +86,13 @@ unset zmodule{,s}
 
 # Autoload Functions {{{
 zstyle -a ':zoppo:load' functions zfunctions
-functions:autoload "$zfunctions[@]" 2>/dev/null
+(( $#zfunctions > 0 )) && functions:autoload "$zfunctions[@]"
 unset zfunctions
 # }}}
 
 # Load Plugins {{{
 zstyle -a ':zoppo:load' plugins zplugins
-zplugload "$zplugins[@]" 2>/dev/null
+(( $#zplugins > 0 )) && zplugload "$zplugins[@]"
 unset zplugins
 # }}}
 
