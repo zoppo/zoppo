@@ -69,24 +69,32 @@ function {
 }
 # }}}
 
+# Initialize Prompts {{{
 functions:add "$(path:prompts)"
 functions:autoload promptinit && promptinit
 typeset -a zoppo_prompt
 zdefault -a ':zoppo' prompt zoppo_prompt 'off'
 prompt "$zoppo_prompt[@]"
 unset zoppo_prompt
+# }}}
 
+# Load Modules {{{
 zstyle -a ':zoppo:load' modules zmodules
 for zmodule ("$zmodules[@]") zmodload "zsh/${(z)module}"
 unset zmodule{,s}
+# }}}
 
+# Autoload Functions {{{
 zstyle -a ':zoppo:load' functions zfunctions
 functions:autoload "$zfunctions[@]" 2>/dev/null
 unset zfunctions
+# }}}
 
+# Load Plugins {{{
 zstyle -a ':zoppo:load' plugins zplugins
 zplugload "$zplugins[@]" 2>/dev/null
 unset zplugins
+# }}}
 
 # Profiling {{{
 if [[ "$1" == 'profile' ]]; then
