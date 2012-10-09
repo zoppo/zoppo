@@ -70,7 +70,10 @@ function {
 # }}}
 
 # Initialize Prompts {{{
-functions:add "$(path:prompts)"
+typeset -a prompts_path
+zstyle -a ':zoppo:path' prompts prompts_path
+(( $#prompts_path > 0 )) && functions:add "${prompts_path[@]}"
+unset prompts_path
 functions:autoload promptinit && promptinit
 typeset -a zoppo_prompt
 zdefault -a ':zoppo' prompt zoppo_prompt 'off'
