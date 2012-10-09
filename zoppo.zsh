@@ -1,3 +1,12 @@
+# Profiling {{{
+if [[ "$1" == 'profile' ]]; then
+  setopt prompt_subst
+  PS4='+$(date +"%H:%M:%S.%N") %N:%i> '
+  exec 3>&2 2>"/tmp/zoppo.profile.$(date +%Y%m%d@%H%M%S)"
+  setopt xtrace prompt_subst
+fi
+# }}}
+
 # Load Libraries {{{
 typeset -ga fpath
 fpath=("${0:h:a}/lib/functions" $fpath)
@@ -78,5 +87,13 @@ unset zfunctions
 zstyle -a ':zoppo:load' plugins zplugins
 zplugload "$zplugins[@]" 2>/dev/null
 unset zplugins
+
+# Profiling {{{
+if [[ "$1" == 'profile' ]]; then
+  unsetopt xtrace
+  exec 2>&3 3>&-
+  unset PS4
+fi
+# }}}
 
 # vim: ft=zsh sts=2 ts=2 sw=2 et fdm=marker fmr={{{,}}}
