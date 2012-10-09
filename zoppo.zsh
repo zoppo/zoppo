@@ -33,20 +33,20 @@ fi
 
 # Environment Options {{{
 function {
-  local -a options
+  local -a zoptions
   local option
 
-  zdefault -a ':zoppo' options options \
+  zdefault -a ':zoppo' options zoptions \
     'brace-ccl' 'rc-quotes' 'no-mail-warning' 'long-list-jobs' 'auto-resume' 'notify' \
     'no-bg-nice' 'no-hup' 'no-check-jobs'
 
-  for option ("$options[@]"); do
+  for option ("$zoptions[@]"); do
     if [[ "$option" =~ "^no-" ]]; then
-      if [[ -n "$(unsetopt "${${${option#no-}//-/_}:u}" 2>&1)" ]]; then
+      if ! options:disable "${option#no-}"; then
         print "zoppo: ${option#no-} not found: could not disable"
       fi
     else
-      if [[ -n "$(setopt "${${option//-/_}:u}" 2>&1)" ]]; then
+      if ! options:enable "$option"; then
         print "zoppo: $option not found: could not enable"
       fi
     fi
