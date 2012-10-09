@@ -15,8 +15,12 @@ case "$1" in
       return 1
     }
 
-    zstyle -T "$2" "$3" && zstyle "$2" "$3" "$4"
-    zstyle -t "$2" "$3"
+    local b
+
+    zstyle -b "$2" "$3" b
+    b="${b:-"$4"}"
+
+    [[ "$b" = 'yes' ]]
     ;;
 
   -*) print "zdefault: invalid option: $1"
