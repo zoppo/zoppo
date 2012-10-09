@@ -17,12 +17,18 @@ source "${0:h:a}/lib/init.zsh"
 
 # Default Paths {{{
 zdefault ':zoppo:internal:path' base "${0:h:a}"
+zdefault ':zoppo:internal:path' cache "${0:h:a}/cache"
 zdefault ':zoppo:internal:path' plugins "${0:h:a}/plugins"
 zdefault ':zoppo:internal:path' prompts "${0:h:a}/prompts"
 # }}}
 
 if [[ -s "${ZDOTDIR:-$HOME}/.zopporc" ]]; then
   source "${ZDOTDIR:-$HOME}/.zopporc"
+fi
+
+# create cache directory unless present
+if [[ ! -d $(path:cache) ]]; then
+  mkdir "$(path:cache)"
 fi
 
 # disable all coloring if the terminal is dumb
