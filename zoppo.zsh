@@ -28,7 +28,7 @@ fi
 
 # create cache directory unless present
 if [[ ! -d $(path:cache) ]]; then
-  mkdir "$(path:cache)"
+  mkdir -p "$(path:cache)"
 fi
 
 # disable all coloring if the terminal is dumb
