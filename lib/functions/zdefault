@@ -32,7 +32,8 @@ case "$1" in
       return 1
     }
 
-    zstyle -T "$1" "$2" && zstyle "$@"
+    zstyle -t "$1" "$2"
+    [[ $? = 2 ]] && zstyle "$@"
 esac
 
 # vim: ft=zsh sts=2 ts=2 sw=2 et fdm=marker fmr={{{,}}}
