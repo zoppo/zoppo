@@ -2,8 +2,6 @@ if ! options:exists "$1"; then
   return 1
 fi
 
-set -A options "${${1//[-_]/}:l}" 'on'
-
-return 0
+setopt "${${1//[-_]/}:l}"
 
 # vim: ft=zsh sts=2 ts=2 sw=2 et fdm=marker fmr={{{,}}}
