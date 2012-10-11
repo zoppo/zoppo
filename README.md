@@ -1,6 +1,6 @@
 zoppo - the crippled configuration framework for Zsh
 ====================================================
-*zoppo* is the configuration framework for [Zsh][1]; it enriches the command line
+*zoppo* is a configuration framework for [Zsh][1]; it enriches the command line
 interface environment with sane defaults, aliases, functions, auto completion,
 and prompt themes.
 
