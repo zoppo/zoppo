@@ -2,17 +2,20 @@
   print "plugins:load: not enough arguments" >&2
   return 1
 }
-setopt LOCAL_OPTIONS EXTENDED_GLOB
 
 local zplugin
-local -a PLUGSPATH
-zstyle -a ':zoppo:path' plugins PLUGSPATH
+local PLUGPATH
 
 for zplugin ("$@"); do
-  local -a PLUGPATHS
-  PLUGPATHS=(${^PLUGSPATH}/"$zplugin"(/FN))
-  local PLUGPATH="$PLUGPATHS[1]"
-  unset PLUGPATHS
+  function {
+    local -a PLUGSPATH
+    zstyle -a ':zoppo:path' plugins PLUGSPATH
+
+    setopt LOCAL_OPTIONS EXTENDED_GLOB
+
+    PLUGPATHS=(${^PLUGSPATH}/"$zplugin"(/FN))
+    PLUGPATH="$PLUGPATHS[1]"
+  }
 
   if zstyle -t ":zoppo:internal:plugin:$zplugin" loaded 'yes'; then
     continue
