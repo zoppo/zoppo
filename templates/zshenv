@@ -1,0 +1,78 @@
+# Paths {{{
+typeset -gU cdpath fpath mailpath manpath path
+typeset -gUT INFOPATH infopath
+
+# set the the list of directories that cd searches
+cdpath=(
+  $cdpath
+)
+
+# set the list of directories that info searches for manuals
+infopath=(
+  /usr/local/share/info
+  /usr/share/info
+  $infopath
+)
+
+# set the list of directories that man searches for manuals
+manpath=(
+  /usr/local/share/man
+  /usr/share/man
+  $manpath
+)
+
+for path_file ('/etc/manpaths.d/'*(.N))
+  manpath+=($(<$path_file))
+unset path_file
+
+# set the list of directories that Zsh searches for programs
+path=(
+  /usr/local/{bin,sbin}
+  /usr/{bin,sbin}
+  /{bin,sbin}
+  $path
+)
+
+for path_file ('/etc/paths.d/'*(.N))
+  path+=($(<$path_file))
+unset path_file
+# }}}
+
+# Temporary Files {{{
+if [[ -d "$TMPDIR" ]]; then
+  export TMPPREFIX="${TMPDIR%/}/zsh"
+
+  if [[ ! -d "$TMPPREFIX" ]]; then
+    mkdir -p "$TMPPREFIX"
+  fi
+fi
+# }}}
+
+# Editors {{{
+export EDITOR='vim'
+export VISUAL='vim'
+export PAGER='less'
+# }}}
+
+# Language {{{
+if [[ -z "$LANG" ]]; then
+  export LANG=en_US.UTF-8
+fi
+
+if [[ -z "$LC_ALL" ]]; then
+  export LC_ALL=en_US.UTF-8
+fi
+# }}}
+
+# Less Options {{{
+# mouse-wheel scrolling has been disabled by -X (disable screen clearing)
+# remove -X and -F (exit if the content fits on one screen) to enable it.
+export LESS='-F -g -i -M -R -S -w -X -z-4'
+
+# set the less input preprocessor
+if is-callable lesspipe.sh; then
+  export LESSOPEN='| lesspipe.sh %s 2>&-'
+fi
+# }}}
+
+# vim: ft=zsh sts=2 ts=2 sw=2 et fdm=marker fmr={{{,}}}
