@@ -23,12 +23,12 @@ for zplugin ("$@"); do
     print "$0: no such plugin: $zplugin" >&2
     continue
   else
-    functions:add "$PLUGPATH"/functions(/FN) 2>/dev/null
-
     function {
       local zfunction
 
       setopt LOCAL_OPTIONS EXTENDED_GLOB
+
+      functions:add "$PLUGPATH"/functions(/FN) 2>/dev/null
 
       for zfunction ("$PLUGPATH"/functions/^([_.]*|README*|after)(.N:t))
         functions:autoload "$zfunction"
