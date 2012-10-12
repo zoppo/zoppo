@@ -3,7 +3,7 @@ Contributing to zoppo - because you're a nice person, aren't you?
 This project would exist even without all of its users and contributors,
 because only @meh and @shurizzle actually use this crippled thing.
 
-Nontheless help will always be appreciated and welcome.
+Nonetheless help will always be appreciated and welcome.
 
 Issue reporting
 ---------------
@@ -30,8 +30,9 @@ Plugins
 - Large functions and helpers must be placed in a *functions* directory.
 - Functions that take arguments should have completion.
 
-Other than that, if you're working on a plugin that you plan to maintain you can
-create a repository where you maintain it and open an issue asking for it to be added.
+Other than that, if you're working on a plugin that you plan to maintain you
+can create a repository where you maintain it and open an issue asking for it
+to be added.
 
 Unless the plugin makes more sense as being merged into another one, it will be
 added as a submodule and you'll be free to work on it.
@@ -46,7 +47,15 @@ Prompts
 
 Coding style
 ============
-Coming soon.
+- Always put at the end of the file with a new line above the vim modeline you
+  can find in any other file in the project (and if you don't use vim, follow
+  the instructions in the modeline).
+- Use single quotes when there's nothing to expand.
+- Use `$name` when there are no modifiers for the expansion.
+- Don't quote command, function and variable names (for example when using
+  `zstyle -[abs]`).
+- Helpers should be named with namespaces (for example `history:stats` to show
+  history statistics).
 
 [1]: http://gun.io/blog/how-to-github-fork-branch-and-pull-request
 [2]: http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
