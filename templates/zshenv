@@ -9,6 +9,7 @@ cdpath=(
 
 # set the list of directories that info searches for manuals
 infopath=(
+  $HOME/.local/share/info
   /usr/local/share/info
   /usr/share/info
   $infopath
@@ -16,6 +17,7 @@ infopath=(
 
 # set the list of directories that man searches for manuals
 manpath=(
+  $HOME/.local/share/man
   /usr/local/share/man
   /usr/share/man
   $manpath
@@ -27,6 +29,8 @@ unset path_file
 
 # set the list of directories that Zsh searches for programs
 path=(
+  $HOME/bin
+  $HOME/.local/{bin,sbin}
   /usr/local/{bin,sbin}
   /usr/{bin,sbin}
   /{bin,sbin}
@@ -48,10 +52,51 @@ if [[ -d "$TMPDIR" ]]; then
 fi
 # }}}
 
-# Editors {{{
-export EDITOR='vim'
-export VISUAL='vim'
-export PAGER='less'
+# Editor {{{
+if (( $+commands[vim] )); then
+  export EDITOR='vim'
+  export VISUAL='vim'
+elif (( $+commands[emacs] )); then
+  export EDITOR='emacs'
+  export VISUAL='emacs'
+elif (( $+commands[nano] )); then
+  export EDITOR='nano'
+  export VISUAL='nano'
+elif (( $+commands[vi] )); then
+  export EDITOR='vi'
+  export VISUAL='vi'
+fi
+# }}}
+
+# Pager {{{
+if (( $+commands[vimpager] )); then
+  export PAGER='vimpager'
+else
+  export PAGER='less'
+
+  # mouse-wheel scrolling has been disabled by -X (disable screen clearing)
+  # remove -X and -F (exit if the content fits on one screen) to enable it.
+  export LESS='-F -g -i -M -R -S -w -X -z-4'
+
+  # set the less input preprocessor
+  if (( $+commands[lesspipe.sh] )); then
+    export LESSOPEN='| lesspipe.sh %s 2>&-'
+  fi
+fi
+# }}}
+
+# Browser {{{
+if [[ "$OSTYPE" == darwin* ]]; then
+  export BROWSER='open'
+elif (( $+commands[xdg-open] )); then
+  export BROWSER='xdg-open'
+elif (( $+commands[firefox] )); then
+  export BROWSER='firefox'
+elif (( $+commands[chromium] )); then
+  export BROWSER='chromium'
+elif (( $+commands[opera] )); then
+  export BROWSER='opera'
+fi
 # }}}
 
 # Language {{{
@@ -61,17 +106,6 @@ fi
 
 if [[ -z "$LC_ALL" ]]; then
   export LC_ALL=en_US.UTF-8
-fi
-# }}}
-
-# Less Options {{{
-# mouse-wheel scrolling has been disabled by -X (disable screen clearing)
-# remove -X and -F (exit if the content fits on one screen) to enable it.
-export LESS='-F -g -i -M -R -S -w -X -z-4'
-
-# set the less input preprocessor
-if (( $+commands[lesspipe.sh] )); then
-  export LESSOPEN='| lesspipe.sh %s 2>&-'
 fi
 # }}}
 
