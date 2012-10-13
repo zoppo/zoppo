@@ -1,0 +1,8 @@
+local hook="${1}_functions"
+local fn
+
+for fn ("${(@P)hook}"); do
+  $fn "${(@)argv[2,-1]}"
+done
+
+# vim: ft=zsh sts=2 ts=2 sw=2 et fdm=marker fmr={{{,}}}

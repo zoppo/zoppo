@@ -1,0 +1,16 @@
+local hook="${1}_functions"
+local fn
+
+for fn ("${(@)argv[2,-1]}"); do
+  if (( ${(P)+hook} )); then
+    set -A $hook ${(P)hook:#$fn}
+
+    # unset if no remaining entries --- this can give better
+    # performance in some cases
+    if (( ! ${(P)#hook} )); then
+      unset $hook
+    fi
+  fi
+done
+
+# vim: ft=zsh sts=2 ts=2 sw=2 et fdm=marker fmr={{{,}}}
