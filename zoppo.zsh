@@ -106,6 +106,8 @@ zstyle -a ':zoppo:load' plugins zplugins
 unset zplugins
 # }}}
 
+hooks:call zoppo_postinit
+
 # Profiling {{{
 if [[ "$1" == 'profile' ]]; then
   unsetopt xtrace
