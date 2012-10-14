@@ -1,5 +1,5 @@
 (( $+1 )) || {
-  print 'is-callable: not enough arguments' >&2
+  warn 'is-callable: not enough arguments'
   return 1
 }
 

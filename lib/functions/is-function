@@ -1,0 +1,8 @@
+(( $+1 )) || {
+  warn 'is-function: not enough arguments'
+  return 1
+}
+
+(( $+functions[$1] ))
+
+# vim: ft=zsh sts=2 ts=2 sw=2 et fdm=marker fmr={{{,}}}
