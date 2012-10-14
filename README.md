@@ -45,13 +45,13 @@ will have the wrong `PATH` when executed non-interactively.
 
 `path_helper` is intended to make it easier for installers to add new paths to
 the environment without having to edit shell configuration files by adding
-a file with a path to the */etc/paths.d* directory.
+a file with a path to the `/etc/paths.d` directory.
 
-Unfortunately, `path_helper` always reads paths from */etc/paths* set by Apple
-then paths from */etc/paths.d* set by third party installers, and lastly paths
+Unfortunately, `path_helper` always reads paths from `/etc/paths` set by Apple
+then paths from `/etc/paths.d` set by third party installers, and lastly paths
 from the `PATH` environment variable set by the parent process, which
 ultimately is set by the user with `export PATH=...` Thus, it reorders path
-priorities, and user */bin* directories meant to override system */bin*
+priorities, and user `/bin` directories meant to override system `/bin`
 directories end up at the tail of the array.
 
 ### Troubleshooting
@@ -67,15 +67,15 @@ accompanying README files to learn of what is available.
 
 ### Plugins
 
-  1. Browse */plugins* to see what is available.
-  2. Load the modules you need in *~/.zopporc* then open a new Zsh terminal
+  1. Browse `/plugins` to see what is available.
+  2. Load the plugins you need in `~/.zopporc` then open a new Zsh terminal
      window or tab.
 
 ### Prompts
 
   1. For a list of prompts, type `prompt -l`.
   2. To preview a prompt, type `prompt -p name`.
-  3. Load the theme you like in *~/.zopporc* then open a new Zsh terminal
+  3. Load the theme you like in `~/.zopporc` then open a new Zsh terminal
      window or tab.
 
 Customization
