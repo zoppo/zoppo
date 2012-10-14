@@ -1,8 +1,8 @@
 # set editor mode to 'emacs' or 'vi'
 zstyle ':zoppo:editor' mode 'emacs'
 
-# autoconvert .... to ../..
-zstyle ':zoppo:editor' dot-expansion 'no'
+# autoconvert .. to parent directory
+zstyle ':zoppo:editor' dot-expansion 'yes'
 
 # set case-sensitivity for completion, history lookup, etc
 zstyle ':zoppo:*:*' case-sensitive 'no'
@@ -11,9 +11,10 @@ zstyle ':zoppo:*:*' case-sensitive 'no'
 zstyle ':zoppo:*:*' color 'yes'
 
 # plugins to load
-zstyle ':zoppo:load' plugins 'completion' 'syntax-highlight' 'history-substring-search'
+zstyle ':zoppo:load' plugins 'utility' 'completion' 'editor' 'history' 'archive' \
+  'fasd' 'syntax-highlight' 'history-substring-search' # comment this line if the shell is slow
 
 # prompt
-zstyle ':zoppo' prompt 'borra'
+zstyle ':zoppo' prompt 'borra' # choose a theme 'bluesky' or 'darkblood'
 
 # vim: ft=zsh sts=2 ts=2 sw=2 et fdm=marker fmr={{{,}}}
