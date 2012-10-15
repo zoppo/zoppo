@@ -1,0 +1,15 @@
+(( $+1 )) || {
+  warn 'plugins:load-if-enabled: not enough arguments'
+  return 1
+}
+
+local -a plugins
+zstyle -a ':zoppo:load' plugins plugins
+
+if (( $plugins[(I)$1] == 0 )); then
+  return 1
+fi
+
+plugins:load "$1"
+
+# vim: ft=zsh sts=2 ts=2 sw=2 et fdm=marker fmr={{{,}}}
