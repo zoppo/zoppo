@@ -1,0 +1,16 @@
+if ! [[ "$1" == '-f' || "$1" == '--force' ]]; then
+  print -n 'Local changes will be lost, update anyway? [y/N] '
+  read answer
+
+  if [[ "$answer" != [Yy] ]]; then
+    return 1
+  fi
+fi
+
+cd "$(path:base)"
+
+git reset --hard || return 1
+git pull origin master || return 1
+git submodule update --init --recursive || return 1
+
+# vim: ft=zsh sts=2 ts=2 sw=2 et fdm=marker fmr={{{,}}}

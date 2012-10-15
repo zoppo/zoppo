@@ -1,0 +1,19 @@
+local cache="$(path:cache)/zoppo.update"
+local epoch="$(($(date +%s) / 60 / 60 / 24))"
+
+if [[ ! -s "$cache" ]]; then
+  print "$epoch" >!"$cache"
+
+  return 1
+fi
+
+local last=$(<"$cache")
+print $epoch >!"$cache"
+
+if [[ $(($epoch - $last)) > 13 ]]; then
+  return 0
+fi
+
+return 1
+
+# vim: ft=zsh sts=2 ts=2 sw=2 et fdm=marker fmr={{{,}}}

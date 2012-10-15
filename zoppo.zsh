@@ -38,20 +38,31 @@ zdefault ':zoppo:path' plugins "${0:h:a}/plugins"
 zdefault ':zoppo:path' prompts "${0:h:a}/prompts"
 # }}}
 
+# Load Zoppo Configuration {{{
 if [[ -s "${ZDOTDIR:-$HOME}/.zopporc" ]]; then
   source "${ZDOTDIR:-$HOME}/.zopporc"
 fi
+# }}}
 
-# create cache directory unless present
+# Cache Directory {{{
 if [[ ! -d $(path:cache) ]]; then
   mkdir -p "$(path:cache)"
 fi
+# }}}
 
-# disable all coloring if the terminal is dumb
+# Auto Updating {{{
+if zdefault -t ':zoppo' auto-update 'no' && zoppo:needs-update; then
+  zoppo:update
+  zoppo:restart
+fi
+# }}}
+
+# Handle Dumb Terminal {{{
 if terminal:is-dumb; then
   zstyle ':zoppo:*:*' color 'no'
   zstyle ':zoppo' prompt 'off'
 fi
+# }}}
 
 # Environment Options {{{
 function {
