@@ -22,6 +22,30 @@ case "$1" in
     zstyle -t "$2" "$3"
     ;;
 
+  +a)
+    (( $+4 )) || {
+      warn 'zdefault: not enough arguments'
+      return 1
+    }
+
+    local -a array
+    zstyle -a "$2" "$3" array
+    array=("$array[@]" "${(@)argv[4,-1]}")
+    zstyle "$2" "$3" "$array[@]"
+    ;;
+
+  +s)
+    (( $# != 4 )) && {
+      warn 'zdefault: wrong number of arguments'
+      return 1
+    }
+
+    local str
+    zstyle -s "$2" "$3" str
+    str="${str}${4}"
+    zstyle "$2" "$3" "$str"
+    ;;
+
   -*) warn "zdefault: invalid option: $1"
     return 1
     ;;
