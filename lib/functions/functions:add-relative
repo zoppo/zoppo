@@ -1,5 +1,5 @@
 (( $+2 )) || {
-  print 'functions:add-relative: not enough arguments' >&2
+  warn 'functions:add-relative: not enough arguments'
   return 1
 }
 

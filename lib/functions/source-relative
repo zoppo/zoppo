@@ -1,5 +1,5 @@
 (( $+2 )) || {
-  print 'source-relative: not enough arguments' >&2
+  warn 'source-relative: not enough arguments'
   return 1
 }
 

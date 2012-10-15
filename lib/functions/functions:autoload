@@ -1,5 +1,5 @@
 (( $+1 )) || {
-  print "functions:autoload: not enough arguments" >&2
+  warn "functions:autoload: not enough arguments"
   return 1
 }
 

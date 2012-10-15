@@ -1,5 +1,5 @@
 (( $+1 )) || {
-  print 'plugins:is-loaded: not enough arguments' >&2
+  warn 'plugins:is-loaded: not enough arguments'
   return 1
 }
 

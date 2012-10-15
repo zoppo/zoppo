@@ -1,5 +1,5 @@
 (( $+1 )) || {
-  print "plugins:load: not enough arguments" >&2
+  warn "plugins:load: not enough arguments"
   return 1
 }
 
@@ -20,7 +20,7 @@ for zplugin ("$@"); do
   if zstyle -t ":zoppo:internal:plugin:$zplugin" loaded 'yes'; then
     continue
   elif [[ ! -d "$PLUGPATH" ]]; then
-    print "$0: no such plugin: $zplugin" >&2
+    warn "$0: no such plugin: $zplugin"
     continue
   else
     function {

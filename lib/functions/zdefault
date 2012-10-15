@@ -1,7 +1,7 @@
 case "$1" in
   -[abs])
     (( $+4 )) || {
-      print 'zdefault: not enough arguments' >&2
+      warn 'zdefault: not enough arguments'
       return 1
     }
 
@@ -12,7 +12,7 @@ case "$1" in
 
   -t)
     (( $# != 4 )) && {
-      print 'zdefault: wrong number of arguments' >&2
+      warn 'zdefault: wrong number of arguments'
       return 1
     }
 
@@ -22,13 +22,13 @@ case "$1" in
     zstyle -t "$2" "$3"
     ;;
 
-  -*) print "zdefault: invalid option: $1"
+  -*) warn "zdefault: invalid option: $1"
     return 1
     ;;
 
   *)
     (( $+2 )) || {
-      print 'zdefault: not enough arguments' >&2
+      warn 'zdefault: not enough arguments'
       return 1
     }
 

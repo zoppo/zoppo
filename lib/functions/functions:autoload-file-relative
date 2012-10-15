@@ -1,5 +1,5 @@
 (( $+3 )) || {
-  print "functions:autoload-file-relative: not enough arguments" >&2
+  warn "functions:autoload-file-relative: not enough arguments"
   return 1
 }
 
