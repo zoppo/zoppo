@@ -1,9 +1,10 @@
 # I Don't Know What I'm Doing {{{
-zstyle ':zoppo' auto-update 'yes'
+zstyle ':zoppo:update' auto 'yes'
+zstyle ':zoppo:update' force 'yes'
 # }}}
 
 # I Know What I'm Doing {{{
-# zstyle ':zoppo' auto-update 'no'
+# zstyle ':zoppo:update' auto 'no'
 
 # this adds your own plugin directory to the path
 # zdefault +a ':zoppo:path' plugins "$HOME/my/plugins"

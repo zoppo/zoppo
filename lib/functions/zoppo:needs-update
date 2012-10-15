@@ -10,7 +10,7 @@ fi
 local last=$(<"$cache")
 print $epoch >!"$cache"
 
-if [[ $(($epoch - $last)) > 13 ]]; then
+if (( $(($epoch - $last)) > $1 )); then
   return 0
 fi
 
