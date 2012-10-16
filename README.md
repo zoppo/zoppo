@@ -33,7 +33,9 @@ version is 4.3.10.
 
         chsh -s /bin/zsh
 
-  5. Open a new Zsh terminal window or tab.
+  5. Restart Zsh
+
+        exec zsh
 
 ### Mac OS X
 
@@ -57,8 +59,7 @@ directories end up at the tail of the array.
 ### Troubleshooting
 
 If you are not able to find certain commands after switching to *zoppo*,
-modify the `PATH` variable in `~/.zshenv` then open a new Zsh terminal
-window or tab.
+modify the `PATH` variable in `~/.zshenv` then run `zoppo:restart`.
 
 Usage
 -----
@@ -68,15 +69,13 @@ accompanying README files to learn of what is available.
 ### Plugins
 
   1. Browse `/plugins` to see what is available.
-  2. Load the plugins you need in `~/.zopporc` then open a new Zsh terminal
-     window or tab.
+  2. Load the plugins you need in `~/.zopporc` then run `zoppo:restart`.
 
 ### Prompts
 
   1. For a list of prompts, type `prompt -l`.
   2. To preview a prompt, type `prompt -p name`.
-  3. Load the theme you like in `~/.zopporc` then open a new Zsh terminal
-     window or tab.
+  3. Load the theme you like in `~/.zopporc` then run `zoppo:restart`.
 
 Customization
 -------------
@@ -117,7 +116,6 @@ SOFTWARE.
 The rest is under WTFPL unless otherwise noted.
 
 [1]: http://www.zsh.org
-[2]: http://i.imgur.com/nBEEZ.png "sorin theme"
 [3]: http://git-scm.com
 [4]: https://github.com
 [5]: http://gitimmersion.com
