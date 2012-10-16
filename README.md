@@ -13,7 +13,7 @@ Installation
 *zoppo* will work with any recent release of Zsh, but the minimum recommended
 version is 4.3.10.
 
-  1. LaunchZsh:
+  1. Launch Zsh:
 
         zsh
 
