@@ -90,18 +90,6 @@ function {
 }
 # }}}
 
-# Initialize Prompts {{{
-typeset -a prompts_path
-zstyle -a ':zoppo:path' prompts prompts_path
-(( $#prompts_path > 0 )) && functions:add "${prompts_path[@]}"
-unset prompts_path
-functions:autoload promptinit && promptinit
-typeset -a zoppo_prompt
-zdefault -a ':zoppo' prompt zoppo_prompt 'off'
-prompt "$zoppo_prompt[@]"
-unset zoppo_prompt
-# }}}
-
 # Load Modules {{{
 zstyle -a ':zoppo:load' modules zmodules
 for zmodule ("$zmodules[@]") zmodload "zsh/${(z)module}"
@@ -121,6 +109,18 @@ unset zplugins
 # }}}
 
 hooks:call zoppo_postinit
+
+# Initialize Prompts {{{
+typeset -a prompts_path
+zstyle -a ':zoppo:path' prompts prompts_path
+(( $#prompts_path > 0 )) && functions:add "${prompts_path[@]}"
+unset prompts_path
+functions:autoload promptinit && promptinit
+typeset -a zoppo_prompt
+zdefault -a ':zoppo' prompt zoppo_prompt 'off'
+prompt "$zoppo_prompt[@]"
+unset zoppo_prompt
+# }}}
 
 # Profiling {{{
 if [[ "$1" == 'profile' ]]; then
