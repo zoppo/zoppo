@@ -83,6 +83,27 @@ The project is managed via [Git][3]. It is highly recommend that you commit
 your changes and push them to [GitHub][4] to not lose them. If you do not know
 how to use Git, follow this [tutorial][5] and bookmark this [reference][6].
 
+If you make changes to the core and think they could be useful for others don't
+hesistate to open [an issue or a pull request][20] showing off the thing. It
+will be discussed unless clearly useful and pertinent to belonging to the core.
+
+The same reasoning can be applied to existing plugins, don't hesitate to open
+[an issue or pull request][21]. That applies to prompts too, just open [an
+issue or pull request][22].
+
+If you want to write plugins for your personal use, it's suggested that you
+create your own plugins directory and add it to the plugins path, it will be
+automatically used so you don't have to fiddle with git.
+
+To add it just put in the `~/.zopporc`:
+
+    zdefault +a ':zoppo:path' plugins '/your/plugins/path
+
+If you want to write your own prompt and don't want to have it merged upstream, you
+can do the same with prompts, just add your prompts path to the path:
+
+     zdefault +a ':zoppo:path' prompts '/your/prompts/path
+
 Resources
 ---------
 The [Zsh Reference Card][7] and the [zsh-lovers][8] man page are indispensable.
@@ -122,3 +143,6 @@ The rest is under WTFPL unless otherwise noted.
 [6]: http://gitref.org
 [7]: http://www.bash2zsh.com/zsh_refcard/refcard.pdf
 [8]: http://grml.org/zsh/zsh-lovers.html
+[20]: https://github.com/zoppo/zoppo/issues
+[21]: https://github.com/zoppo/plugins/issues
+[21]: https://github.com/zoppo/prompts/issues
