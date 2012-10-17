@@ -19,7 +19,7 @@ version is 4.3.10.
 
   2. Clone the repository:
 
-        git clone --recursive git://github.com/zoppo/zoppo.git "${ZDOTDIR:-$HOME}/.zoppo"
+        git clone --branch default --recursive git://github.com/zoppo/zoppo.git "${ZDOTDIR:-$HOME}/.zoppo"
 
   3. Create a new Zsh configuration by copying the Zsh configuration files
      provided:
