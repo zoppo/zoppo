@@ -145,4 +145,4 @@ The rest is under WTFPL unless otherwise noted.
 [8]: http://grml.org/zsh/zsh-lovers.html
 [20]: https://github.com/zoppo/zoppo/issues
 [21]: https://github.com/zoppo/plugins/issues
-[21]: https://github.com/zoppo/prompts/issues
+[22]: https://github.com/zoppo/prompts/issues
