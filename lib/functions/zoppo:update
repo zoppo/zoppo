@@ -1,4 +1,29 @@
-if ! [[ "$1" == '-f' || "$1" == '--force' ]]; then
+local force=0
+local verbose=0
+local arg
+
+for arg in "$@"; do
+  case "$arg" in
+    -f|--force)
+      force=1
+      shift
+      ;;
+    -v|--verbose)
+      verbose=1
+      shift
+      ;;
+    -vf|-fv)
+      force=1
+      verbose=1
+      shift
+      ;;
+    *)
+      break
+      ;;
+  esac
+done
+
+if (( ! $force )); then
   print -n 'Local changes will be lost, update anyway? [y/N] '
   read answer
 
@@ -7,10 +32,23 @@ if ! [[ "$1" == '-f' || "$1" == '--force' ]]; then
   fi
 fi
 
+if [[ ! -d "$(path:base)" ]]; then
+  warn 'The base path does not exist.'
+  return 1
+fi
+
 cd "$(path:base)"
 
-git reset --hard || return 1
-git pull origin master || return 1
-git submodule update --init --recursive || return 1
+if (( $verbose )); then
+  git reset --hard && \
+  git pull origin master && \
+  git submodule update --init --recursive
+else
+  {
+    git reset --hard && \
+    git pull origin master && \
+    git submodule update --init --recursive
+  } &>/dev/null
+fi
 
 # vim: ft=zsh sts=2 ts=2 sw=2 et fdm=marker fmr={{{,}}}
