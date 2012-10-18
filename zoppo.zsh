@@ -1,12 +1,3 @@
-# Profiling {{{
-if [[ "$1" == 'profile' ]]; then
-  setopt prompt_subst
-  PS4='+$(date +"%H:%M:%S.%N") %N:%i> '
-  exec 3>&2 2>"/tmp/zoppo.profile.$(date +%Y%m%d@%H%M%S)"
-  setopt xtrace prompt_subst
-fi
-# }}}
-
 # Minimum Version Check {{{
 if ! autoload -Uz is-at-least || ! is-at-least '4.3.10'; then
   print "prezto: old shell detected, minimum required: 4.3.10" >&2
@@ -120,14 +111,6 @@ typeset -a zoppo_prompt
 zdefault -a ':zoppo' prompt zoppo_prompt 'off'
 prompt "$zoppo_prompt[@]"
 unset zoppo_prompt
-# }}}
-
-# Profiling {{{
-if [[ "$1" == 'profile' ]]; then
-  unsetopt xtrace
-  exec 2>&3 3>&-
-  unset PS4
-fi
 # }}}
 
 # vim: ft=zsh sts=2 ts=2 sw=2 et fdm=marker fmr={{{,}}}
