@@ -41,12 +41,12 @@ cd "$(path:base)"
 
 if (( $verbose )); then
   git reset --hard && \
-  git pull origin master && \
+  git pull origin default && \
   git submodule update --init --recursive
 else
   {
     git reset --hard && \
-    git pull origin master && \
+    git pull origin default && \
     git submodule update --init --recursive
   } &>/dev/null
 fi
