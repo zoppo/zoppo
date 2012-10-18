@@ -52,7 +52,7 @@ fi
 
 # Auto Updating {{{
 if zdefault -t ':zoppo:update' auto 'no'; then
-  if zdefault -t ':zoppo:update' force 'no' && needs-update 1; then
+  if zdefault -t ':zoppo:update' force 'no' && zoppo:needs-update 1; then
     zoppo:update -f && zoppo:restart
   elif zoppo:needs-update 8; then
     zoppo:update && zoppo:restart
