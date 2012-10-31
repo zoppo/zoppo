@@ -1,6 +1,6 @@
 # Minimum Version Check {{{
 if ! autoload -Uz is-at-least || ! is-at-least '4.3.10'; then
-  print "prezto: old shell detected, minimum required: 4.3.10" >&2
+  print 'zoppo: old shell detected, minimum required: 4.3.10' >&2
   return 1
 fi
 # }}}
