@@ -24,7 +24,7 @@ source "${0:h:a}/lib/init.zsh"
 
 # Default Paths {{{
 zdefault ':zoppo:path' base "${0:h:a}"
-zdefault ':zoppo:path' cache "${0:h:a}/cache"
+zdefault ':zoppo:path' cache "${ZDOTDIR:-$HOME}/.zcache"
 zdefault ':zoppo:path' plugins "${0:h:a}/plugins"
 zdefault ':zoppo:path' prompts "${0:h:a}/prompts"
 # }}}
