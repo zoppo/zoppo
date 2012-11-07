@@ -26,8 +26,11 @@ zstyle ':zoppo:*:*' case-sensitive 'no'
 zstyle ':zoppo:*:*' color 'yes'
 
 # plugins to load
-zstyle ':zoppo:load' plugins 'utility' 'completion' 'editor' 'history' 'archive' \
-  'fasd' 'syntax-highlight' 'history-substring-search' # comment this line if the shell is slow
+zstyle ':zoppo:load' plugins 'utility' 'completion' 'editor' 'history' 'archive' 'sudo' \
+  'fasd' 'syntax-highlight' 'history-substring-search' # comment this line if the shell is too slow
+
+# sudo
+zstyle ':zoppo:plugin:sudo' environments 'utils'
 
 # prompt
 zstyle ':zoppo' prompt 'borra' # choose a theme 'bluesky' or 'darkblood'
