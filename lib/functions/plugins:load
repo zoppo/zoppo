@@ -17,7 +17,7 @@ for zplugin ("$@"); do
     PLUGPATH="$PLUGPATHS[1]"
   }
 
-  if zstyle -t ":zoppo:internal:plugin:$zplugin" loaded 'yes'; then
+  if zstyle -t ":zoppo:internal:plugin:$zplugin" loaded; then
     continue
   elif [[ ! -d "$PLUGPATH" ]]; then
     warn "$0: no such plugin: $zplugin"
