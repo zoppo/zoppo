@@ -30,7 +30,7 @@ zstyle ':zoppo:load' plugins 'utility' 'completion' 'editor' 'history' 'archive'
   'fasd' 'syntax-highlight' 'history-substring-search' # comment this line if the shell is too slow
 
 # sudo
-zstyle ':zoppo:plugin:sudo' environments 'utils'
+zstyle ':zoppo:plugin:sudo' environments 'utils' 'system'
 
 # prompt
 zstyle ':zoppo' prompt 'borra' # choose a theme 'bluesky' or 'darkblood'
