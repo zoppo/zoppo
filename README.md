@@ -13,6 +13,16 @@ Installation
 *zoppo* will work with any recent release of Zsh, but the minimum recommended
 version is 4.3.10.
 
+### The super dooper automatic way
+
+    wget -O- https://github.com/zoppo/zoppo/blob/master/bin/installer.zsh | zsh -s -- -y
+
+### The easy but full of questions way
+
+    wget -O- https://github.com/zoppo/zoppo/blob/master/bin/installer.zsh | zsh -s
+
+### The paranoid way
+
   1. Launch Zsh:
 
         zsh
