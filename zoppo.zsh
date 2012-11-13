@@ -124,6 +124,10 @@ zstyle -a ':zoppo:load' plugins zplugins
 unset zplugins
 # }}}
 
+if zoppo:has-been-updated; then
+  hooks:call zoppo_updated
+fi
+
 hooks:call zoppo_postinit
 
 # Profile {{{
