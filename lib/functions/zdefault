@@ -6,7 +6,7 @@ case "$1" in
     }
 
     zstyle -t "$2" "$3"
-    [[ $? = 2 ]] && zstyle "$2" "$3" "${(@)argv[5,-1]}"
+    (( $? == 2 )) && zstyle "$2" "$3" "${(@)argv[5,-1]}"
     zstyle "${(@)argv[1,4]}"
     ;;
 
@@ -17,7 +17,7 @@ case "$1" in
     }
 
     zstyle -t "$2" "$3"
-    [[ $? = 2 ]] && zstyle "$2" "$3" "$4"
+    (( $? == 2 )) && zstyle "$2" "$3" "$4"
 
     zstyle -t "$2" "$3"
     ;;
@@ -57,7 +57,7 @@ case "$1" in
     }
 
     zstyle -t "$1" "$2"
-    [[ $? = 2 ]] && zstyle "$@"
+    (( $? == 2 )) && zstyle "$@"
 esac
 
 # vim: ft=zsh sts=2 ts=2 sw=2 et fdm=marker fmr={{{,}}}
