@@ -22,6 +22,31 @@ unset LIBPATH
 source "${0:h:a}/lib/init.zsh"
 # }}}
 
+# Load Arguments {{{
+while (( $+1 )); do
+  case "$1" in
+    -profile)
+      shift
+
+      if [[ -n "$1" && "$1" != -* ]]; then
+        export ZOPPO_PROFILE="$1"
+      else
+        export ZOPPO_PROFILE=1
+      fi
+
+      ;;
+
+    *) shift ;;
+  esac
+done
+# }}}
+
+# Profile {{{
+if profile:is-enabled; then
+  zmodload zsh/zprof
+fi
+# }}}
+
 # Default Paths {{{
 zdefault ':zoppo:path' base "${0:h:a}"
 zdefault ':zoppo:path' cache "${ZDOTDIR:-$HOME}/.zcache"
@@ -100,6 +125,12 @@ unset zplugins
 # }}}
 
 hooks:call zoppo_postinit
+
+# Profile {{{
+if profile:is-enabled; then
+  zprof >! $(profile:path)
+fi
+# }}}
 
 # Initialize Prompts {{{
 typeset -a prompts_path
