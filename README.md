@@ -15,11 +15,11 @@ version is 4.3.10.
 
 ### The super dooper automatic way
 
-    wget -O- https://github.com/zoppo/zoppo/blob/master/bin/installer.zsh | zsh -s -- -y
+    wget -O- https://raw.github.com/zoppo/zoppo/master/bin/installer.zsh | zsh -s -- -y
 
 ### The easy but full of questions way
 
-    wget -O- https://github.com/zoppo/zoppo/blob/master/bin/installer.zsh | zsh -s
+    wget -O- https://raw.github.com/zoppo/zoppo/master/bin/installer.zsh | zsh -s
 
 ### The paranoid way
 
