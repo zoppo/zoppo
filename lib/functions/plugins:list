@@ -1,0 +1,18 @@
+(( $# == 0 )) || {
+  warn 'Too many arguments'
+  return 1
+}
+
+local ctx tmp
+local -a plugins
+zstyle -g tmp
+
+for ctx ("$tmp[@]"); do
+  if [[ "$ctx" == :zoppo:internal:plugin:* ]] && zstyle -t "$ctx" loaded; then
+    plugins+=("${ctx##:zoppo:internal:plugin:}")
+  fi
+done
+
+print -l -- "${(o@)plugins}"
+
+# vim: ft=zsh sts=2 ts=2 sw=2 et fdm=marker fmr={{{,}}}
