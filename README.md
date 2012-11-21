@@ -107,12 +107,12 @@ automatically used so you don't have to fiddle with git.
 
 To add it just put in the `~/.zopporc`:
 
-    zdefault +a ':zoppo:path' plugins '/your/plugins/path
+    zdefault +a ':zoppo:path' plugins '/your/plugins/path'
 
 If you want to write your own prompt and don't want to have it merged upstream, you
 can do the same with prompts, just add your prompts path to the path:
 
-     zdefault +a ':zoppo:path' prompts '/your/prompts/path
+     zdefault +a ':zoppo:path' prompts '/your/prompts/path'
 
 Resources
 ---------
