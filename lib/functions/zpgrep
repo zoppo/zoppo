@@ -1,0 +1,53 @@
+local _USER REGEXP
+
+local usage="USAGE: $0 [-u USER] REGEXP"
+
+if (( $# == 1 )); then
+  REGEXP="$1"
+elif (( $# == 3 )); then
+  if [[ "$1" == "-u" ]]; then
+    _USER="$2"
+    REGEXP="$3"
+  elif [[ "$2" == "-u" ]]; then
+    _USER="$3"
+    REGEXP="$1"
+  else
+    warn "$usage"
+    return 1
+  fi
+else
+  warn "$usage"
+  return 1
+fi
+
+if is-callable pgrep; then
+  if [[ -n "$_USER" ]]; then
+    pgrep -u "$_USER" "$REGEXP"
+  else
+    pgrep "$REGEXP"
+  fi
+elif is-callable ps; then
+  zmodload zsh/pcre
+
+  local PID __USER COMMAND
+
+  ps -Ao pid,user,command | (read COMMAND; <&0) | \
+    if [[ -n "$_USER" ]]; then
+      while read PID __USER COMMAND; do
+        if [[ "$__USER" == "$_USER" && "$COMMAND" -pcre-match "$REGEXP" ]]; then
+          print "$PID"
+        fi
+      done
+    else
+      while read PID __USER COMMAND; do
+        if [[ "$COMMAND" -pcre-match "$REGEXP" ]]; then
+          print "$PID"
+        fi
+      done
+    fi
+else
+  warn "There are no pgrep or ps."
+  return 1
+fi
+
+# vim: ft=zsh sts=2 ts=2 sw=2 et fdm=marker fmr={{{,}}}
