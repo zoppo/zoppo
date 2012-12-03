@@ -22,9 +22,9 @@ fi
 
 if is-callable pgrep; then
   if [[ -n "$_USER" ]]; then
-    pgrep -u "$_USER" "$REGEXP"
+    pgrep -u "$_USER" -f "$REGEXP"
   else
-    pgrep "$REGEXP"
+    pgrep -f "$REGEXP"
   fi
 elif is-callable ps; then
   zmodload zsh/pcre
