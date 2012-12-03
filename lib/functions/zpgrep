@@ -29,22 +29,25 @@ if is-callable pgrep; then
 elif is-callable ps; then
   zmodload zsh/pcre
 
-  local PID __USER COMMAND
+  local PID __USER COMMAND ret=1
 
   ps -Ao pid,user,command | (read COMMAND; <&0) | \
     if [[ -n "$_USER" ]]; then
       while read PID __USER COMMAND; do
         if [[ "$__USER" == "$_USER" && "$COMMAND" -pcre-match "$REGEXP" ]]; then
+          ret=0
           print "$PID"
         fi
       done
     else
       while read PID __USER COMMAND; do
         if [[ "$COMMAND" -pcre-match "$REGEXP" ]]; then
+          ret=0
           print "$PID"
         fi
       done
     fi
+    return $ret
 else
   warn "There are no pgrep or ps."
   return 1
