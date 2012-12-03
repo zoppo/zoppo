@@ -1,3 +1,5 @@
+functions:autoload regexp-replace
+
 # Functions {{{
 # XXX: do NOT use in anonymous functions
 alias functions:add-relative='functions:add-relative "${0:h:a}"'
