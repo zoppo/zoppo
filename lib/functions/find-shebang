@@ -3,6 +3,8 @@
   return 1
 }
 
+[[ -f "$1" ]] || return 1
+
 setopt localoptions bashrematch
 
 while read LINE; do
@@ -11,12 +13,7 @@ while read LINE; do
     local arg
     local -a args
 
-    args=(${(z@)BASH_REMATCH[2]})
-
-    print -rn -- "${(q)args[1]}"
-    for arg ("${args[2,-1]}"); do
-      print -rn -- " ${(q)arg}"
-    done
+    print -rn -- "${(j| |)${(z@)BASH_REMATCH[2]}}"
   fi
   break
 done < "$1"
