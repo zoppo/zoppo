@@ -1,0 +1,15 @@
+#compdef fork
+
+local state line
+
+_arguments -C -s -A "-*"
+
+args=( "$@" )
+_alternative -O args \
+  'commands:external command:_path_commands' \
+  'builtins:builtin command:compadd -k builtins' \
+  'functions:shell function:compadd -k functions' \
+  'aliases:alias:compadd -k aliases' \
+  'reserved-words:reserved word:compadd -k reswords'
+
+# vim: ft=zsh sts=2 ts=2 sw=2 et fdm=marker fmr={{{,}}}
