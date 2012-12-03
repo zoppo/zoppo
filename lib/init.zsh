@@ -1,4 +1,5 @@
 functions:autoload regexp-replace
+zmodload zsh/pcre
 
 # Functions {{{
 # XXX: do NOT use in anonymous functions
