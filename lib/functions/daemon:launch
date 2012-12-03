@@ -1,0 +1,42 @@
+(( $+1 )) || {
+  warn "Usage: $0 [-once] cmd [arg1 ... argN]"
+  return 1
+}
+
+case "$1" in
+  (-once)
+    shift
+
+    local BIN="$(if is-command "$1" &>/dev/null; then print -rn -- ="$1"; else print -rn -- "$1"; fi)"
+    local SHEBANG="$(find-shebang "$BIN")"
+    local REGEXP arg
+    local -a args
+
+    REGEXP="^\\s*($(regexp:escape "$1")"
+    [[ "$BIN" != "$1" ]] && REGEXP+="|$(regexp:escape "$BIN")"
+
+    if [[ -n "$SHEBANG" ]]; then
+      args=(${(z@)SHEBANG} "$BIN")
+
+      REGEXP+="|$(regexp:escape "${(Q)args[1]}")"
+      for arg ("${(@)args[2,-1]}"); do
+        REGEXP+="\\s+$(regexp:escape "${(Q)arg}")"
+      done
+    fi
+
+    REGEXP+=")"
+
+    for arg ("${(@)argv[2,-1]}"); do
+      REGEXP+="\\s+$(regexp:escape "$arg")"
+    done
+
+    REGEXP+="\\s*$"
+
+
+    zpgrep -u "$USER" "$REGEXP" || fork "$@"
+
+    ;;
+  (*) fork "$@" ;;
+esac
+
+# vim: ft=zsh sts=2 ts=2 sw=2 et fdm=marker fmr={{{,}}}
