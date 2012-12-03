@@ -1,0 +1,21 @@
+(( $+1 )) || {
+  warn "find-shebang: not enough arguments."
+  return 1
+}
+
+[[ -f "$1" ]] || return 1
+
+setopt localoptions bashrematch
+
+while read LINE; do
+  [[ "$LINE" -pcre-match '^\s*$' ]] && continue
+  if [[ "$LINE" -pcre-match '^\s*#!\s*(.+?)\s*$' ]]; then
+    local arg
+    local -a args
+
+    print -rn -- "${(j| |)${(z@)BASH_REMATCH[2]}}"
+  fi
+  break
+done < "$1"
+
+# vim: ft=zsh sts=2 ts=2 sw=2 et fdm=marker fmr={{{,}}}
