@@ -36,6 +36,14 @@ while (( $+1 )); do
 
       ;;
 
+    -config)
+      shift
+
+      zstyle ':zoppo' config "$1"
+      shift
+
+      ;;
+
     *) shift ;;
   esac
 done
@@ -55,9 +63,11 @@ zdefault ':zoppo:path' prompts "${0:h:a}/prompts"
 # }}}
 
 # Load Zoppo Configuration {{{
-if [[ -s "${ZDOTDIR:-$HOME}/.zopporc" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zopporc"
+zdefault -s ':zoppo' config zconfig "${ZDOTDIR:-$HOME}/.zopporc"
+if [[ -s "$zconfig" ]]; then
+  source "$zconfig"
 fi
+unset zconfig
 # }}}
 
 # Cache Directory {{{
