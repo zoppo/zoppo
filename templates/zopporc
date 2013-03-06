@@ -14,10 +14,10 @@ zstyle ':zoppo:update' force 'yes'
 # }}}
 
 # set editor mode to 'emacs' or 'vi'
-zstyle ':zoppo:editor' mode 'emacs'
+zstyle ':zoppo:plugin:editor' mode 'emacs'
 
 # autoconvert .. to parent directory
-zstyle ':zoppo:editor' dot-expansion 'yes'
+zstyle ':zoppo:plugin:editor' dot-expansion 'yes'
 
 # set case-sensitivity for completion, history lookup, etc
 zstyle ':zoppo:*:*' case-sensitive 'no'
