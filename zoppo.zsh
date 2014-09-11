@@ -13,7 +13,7 @@ LIBPATH="${0:h:a}/lib"
 function {
   local zfunction
 
-  setopt LOCAL_OPTIONS EXTENDED_GLOB
+  setopt LOCAL_OPTIONS EXTENDED_GLOB BARE_GLOB_QUAL
   for zfunction ("$LIBPATH"/functions/^([._]|README)*(.N:t))
     autoload -Uz -- "$zfunction"
 }
