@@ -5,8 +5,10 @@ if ! autoload -Uz is-at-least || ! is-at-least '4.3.10'; then
 fi
 # }}}
 
+# Ensure path arrays do not contain duplicates.
+typeset -gU cdpath fpath mailpath path
+
 # Load Libraries {{{
-typeset -ga fpath
 fpath=("${0:h:a}/lib/functions" $fpath)
 
 LIBPATH="${0:h:a}/lib"
