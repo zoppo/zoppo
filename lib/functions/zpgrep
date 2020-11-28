@@ -35,19 +35,16 @@ elif is-callable ps; then
     if [[ -n "$_USER" ]]; then
       while read PID __USER COMMAND; do
         if [[ "$__USER" == "$_USER" && "$COMMAND" -pcre-match "$REGEXP" ]]; then
-          ret=0
           print "$PID"
         fi
       done
     else
       while read PID __USER COMMAND; do
         if [[ "$COMMAND" -pcre-match "$REGEXP" ]]; then
-          ret=0
           print "$PID"
         fi
       done
     fi
-    return $ret
 else
   warn "There are no pgrep or ps."
   return 1
