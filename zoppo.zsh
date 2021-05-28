@@ -11,15 +11,13 @@ typeset -gU cdpath fpath mailpath path
 # Load Libraries {{{
 fpath=("${0:h:a}/lib/functions" $fpath)
 
-LIBPATH="${0:h:a}/lib"
 function {
   local zfunction
 
   setopt LOCAL_OPTIONS EXTENDED_GLOB BARE_GLOB_QUAL
-  for zfunction ("$LIBPATH"/functions/^([._]|README)*(.N:t))
+  for zfunction ("${${(%):-%x}:a:h}"/lib/functions/^([._]|README)*(.N:t))
     autoload -Uz -- "$zfunction"
 }
-unset LIBPATH
 
 source "${0:h:a}/lib/init.zsh"
 # }}}
@@ -119,21 +117,28 @@ function {
 # }}}
 
 # Load Modules {{{
-zstyle -a ':zoppo:load' modules zmodules
-for zmodule ("$zmodules[@]") zmodload "zsh/${(z)module}"
-unset zmodule{,s}
+function {
+  local zmodule
+  local -a zmodules
+  zstyle -a ':zoppo:load' modules zmodules
+  for zmodule ("$zmodules[@]") zmodload "zsh/${(z)module}"
+}
 # }}}
 
 # Autoload Functions {{{
-zstyle -a ':zoppo:load' functions zfunctions
-(( $#zfunctions > 0 )) && functions:autoload "$zfunctions[@]"
-unset zfunctions
+function {
+  local -a zfunctions
+  zstyle -a ':zoppo:load' functions zfunctions
+  (( $#zfunctions > 0 )) && functions:autoload "$zfunctions[@]"
+}
 # }}}
 
 # Load Plugins {{{
-zstyle -a ':zoppo:load' plugins zplugins
-(( $#zplugins > 0 )) && zplugload "$zplugins[@]"
-unset zplugins
+function {
+  local -a zplugins
+  zstyle -a ':zoppo:load' plugins zplugins
+  (( $#zplugins > 0 )) && zplugload "$zplugins[@]"
+}
 # }}}
 
 if zoppo:has-been-updated; then
@@ -149,15 +154,15 @@ fi
 # }}}
 
 # Initialize Prompts {{{
-typeset -a prompts_path
-zstyle -a ':zoppo:path' prompts prompts_path
-(( $#prompts_path > 0 )) && functions:add "${prompts_path[@]}"
-unset prompts_path
-functions:autoload promptinit && promptinit
-typeset -a zoppo_prompt
-zdefault -a ':zoppo' prompt zoppo_prompt 'off'
-prompt "$zoppo_prompt[@]"
-unset zoppo_prompt
+function {
+  local -a prompts_path zoppo_prompt
+  zstyle -a ':zoppo:path' prompts prompts_path
+  (( $#prompts_path > 0 )) && functions:add "${prompts_path[@]}"
+  functions:autoload promptinit && promptinit
+  typeset -a zoppo_prompt
+  zdefault -a ':zoppo' prompt zoppo_prompt 'off'
+  prompt "$zoppo_prompt[@]"
+}
 # }}}
 
 # vim: ft=zsh sts=2 ts=2 sw=2 et fdm=marker fmr={{{,}}}
