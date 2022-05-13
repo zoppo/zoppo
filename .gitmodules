@@ -1,6 +1,6 @@
 [submodule "plugins"]
 	path = plugins
-	url = git://github.com/zoppo/plugins.git
+	url = git@github.com:zoppo/plugins.git
 [submodule "prompts"]
 	path = prompts
-	url = git://github.com/zoppo/prompts.git
+	url = git@github.com:zoppo/prompts.git
