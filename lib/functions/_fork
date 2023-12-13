@@ -1,15 +1,20 @@
 #compdef fork
 
-local state line
+setopt localoptions extended_glob
+local environ e cmd cpp
+local -a _comp_priv_prefix
+local -A opt_args
+zstyle -a ":completion:${curcontext}:" environ environ
+for e in "${environ[@]}"
+do
+    local -x "$e"
+done
+cmd="$words[1]"
+cpp='_comp_priv_prefix=(
+    $cmd -n
+    ${(kv)opt_args[@]}
+)'
 
-_arguments -C -s -A "-*"
-
-args=( "$@" )
-_alternative -O args \
-  'commands:external command:_path_commands' \
-  'builtins:builtin command:compadd -k builtins' \
-  'functions:shell function:compadd -k functions' \
-  'aliases:alias:compadd -k aliases' \
-  'reserved-words:reserved word:compadd -k reswords'
+_arguments -s -S "(-)1: :{ $cpp; _command_names -e }" "*:: :{ $cpp; _normal }"
 
 # vim: ft=zsh sts=2 ts=2 sw=2 et fdm=marker fmr={{{,}}}
