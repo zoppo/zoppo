@@ -58,7 +58,7 @@ if [[ -e "${ZDOTDIR:-$HOME}/.zoppo" ]]; then
   fi
 fi
 
-git clone --branch default --recursive git://github.com/zoppo/zoppo.git "${ZDOTDIR:-$HOME}/.zoppo" || die "Can't clone repo in ${ZDOTDIT:-$HOME}/.zoppo"
+git clone --branch default --recursive https://github.com/zoppo/zoppo.git "${ZDOTDIR:-$HOME}/.zoppo" || die "Can't clone repo in ${ZDOTDIT:-$HOME}/.zoppo"
 
 setopt EXTENDED_GLOB
 for rcfile in "${ZDOTDIR:-$HOME}"/.zoppo/templates/^README.md(.N); do
