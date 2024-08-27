@@ -6,25 +6,25 @@ if (( $+commands[figlet] )); then
   figlet -w "${COLUMNS:-80}" 'ZOPPO INSTALLER'
 else
   print ' ________  ____  ____   ___    ___ _   _ ____ _____  _    _     _     _____ ____'
-  print '|__  / _ \|  _ \|  _ \ / _ \  |_ _| \ | / ___|_   _|/ \  | |   | |   | ____|  _ \'
-  print '  / / | | | |_) | |_) | | | |  | ||  \| \___ \ | | / _ \ | |   | |   |  _| | |_) |'
-  print ' / /| |_| |  __/|  __/| |_| |  | || |\  |___) || |/ ___ \| |___| |___| |___|  _ <'
-  print '/____\___/|_|   |_|    \___/  |___|_| \_|____/ |_/_/   \_\_____|_____|_____|_| \_\'
+  print '|__  / _ \\|  _ \\|  _ \\ / _ \\  |_ _| \\ | / ___|_   _|/ \\  | |   | |   | ____|  _ \\'
+  print '  / / | | | |_) | |_) | | | |  | ||  \\| \\___ \\ | | / _ \\ | |   | |   |  _| | |_) |'
+  print ' / /| |_| |  __/|  __/| |_| |  | || |\\  |___) || |/ ___ \\| |___| |___| |___|  _ <'
+  print '/____\\___/|_|   |_|    \\___/  |___|_| \\_|____/ |_/_/   \\_\\_____|_____|_____|_| \\_\\'
   print
 fi
 
 function alert {
-  print -n -- " \e[1;32m/\\\e[0m "
+  print -n -- " \\e[1;31m/\\\\\\e[0m "
   print -n -- "$@"
 }
 
 function query {
-  print -n -- " \e[1;32m?\e[0m "
+  print -n -- " \\e[1;32m?\\e[0m "
   print -n -- "$@"
 }
 
 function info {
-  print -n -- " \e[1;33m!\e[0m "
+  print -n -- " \\e[1;33m!\\e[0m "
   print -n -- "$@"
 }
 
@@ -58,7 +58,7 @@ if [[ -e "${ZDOTDIR:-$HOME}/.zoppo" ]]; then
   fi
 fi
 
-git clone --branch default --recursive git://github.com/zoppo/zoppo.git "${ZDOTDIR:-$HOME}/.zoppo" || die "Can't clone repo in ${ZDOTDIT:-$HOME}/.zoppo"
+git clone --branch default --recursive https://github.com/zoppo/zoppo.git "${ZDOTDIR:-$HOME}/.zoppo" || die "Can't clone repo in ${ZDOTDIT:-$HOME}/.zoppo"
 
 setopt EXTENDED_GLOB
 for rcfile in "${ZDOTDIR:-$HOME}"/.zoppo/templates/^README.md(.N); do
